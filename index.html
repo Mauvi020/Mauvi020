@@ -5,17 +5,12 @@
 <title>Mauvi | Links</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Minecraft Font -->
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
 <style>
 :root {
     --bg-light: linear-gradient(160deg, #ff9a00, #ffe066);
     --bg-dark: linear-gradient(160deg, #1b1200, #3a2600);
-    --button-light: #ffffff;
-    --button-dark: #1e1e1e;
-    --text-light: #ff9800;
-    --text-dark: #ffd966;
 }
 
 body {
@@ -34,30 +29,29 @@ body {
 }
 
 .container {
-    width: 100%;
     max-width: 360px;
+    width: 100%;
     padding: 26px 18px;
     text-align: center;
     position: relative;
 }
 
-/* 🟧 ANIMATED PIXEL FRAME */
+/* Pixel Frame */
 .container::before {
     content: "";
     position: absolute;
     inset: 0;
     padding: 4px;
-    background:
-        repeating-linear-gradient(
-            90deg,
-            #ffb000 0 8px,
-            #ff7b00 8px 16px
-        );
+    background: repeating-linear-gradient(
+        90deg,
+        #ffb000 0 8px,
+        #ff7b00 8px 16px
+    );
     -webkit-mask:
         linear-gradient(#000 0 0) content-box,
         linear-gradient(#000 0 0);
     -webkit-mask-composite: xor;
-            mask-composite: exclude;
+    mask-composite: exclude;
     animation: pixelMove 3s linear infinite;
     border-radius: 14px;
 }
@@ -73,130 +67,155 @@ body {
     border-radius: 50%;
     border: 4px solid white;
     object-fit: cover;
-    margin: 12px 0 14px;
-    box-shadow: 0 0 20px rgba(255,170,0,0.6);
+    margin: 10px 0;
+    box-shadow: 0 0 18px rgba(255,170,0,0.6);
+    cursor: pointer;
 }
 
-h1 {
-    font-size: 16px;
-    margin-bottom: 6px;
+.server-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 8px;
+    margin: 10px auto;
+    image-rendering: pixelated;
 }
 
-p {
-    font-size: 9px;
-    opacity: 0.85;
-    margin-bottom: 18px;
-}
+h1 { font-size: 16px; margin-bottom: 6px; }
+p  { font-size: 9px; opacity: .85; }
 
-/* SERVER STATUS */
-#status {
+#status, #extra {
     font-size: 8px;
-    margin-bottom: 18px;
+    margin: 6px 0;
+}
+
+#motd {
+    font-size: 8px;
+    margin: 12px 0 18px;
+    line-height: 1.6;
+    background: rgba(0,0,0,.25);
     padding: 10px;
     border-radius: 10px;
-    background: rgba(0,0,0,0.25);
 }
 
-/* Minecraft Buttons */
+/* Buttons */
 .link {
     display: block;
     text-decoration: none;
-    color: var(--text-light);
-    background: var(--button-light);
+    background: white;
+    color: #ff9800;
     padding: 18px 10px;
     margin: 14px 0;
     font-size: 9px;
     border-radius: 6px;
-    position: relative;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
     box-shadow:
-        inset -3px -3px 0 rgba(0,0,0,0.15),
-        inset 3px 3px 0 rgba(255,255,255,0.4),
+        inset -3px -3px 0 rgba(0,0,0,.15),
+        inset 3px 3px 0 rgba(255,255,255,.4),
         0 6px 0 #c47c00;
-}
-
-@media (prefers-color-scheme: dark) {
-    .link {
-        background: var(--button-dark);
-        color: var(--text-dark);
-        box-shadow:
-            inset -3px -3px 0 rgba(0,0,0,0.6),
-            inset 3px 3px 0 rgba(255,255,255,0.05),
-            0 6px 0 #000;
-    }
+    transition: transform .15s ease, box-shadow .15s ease;
 }
 
 .link:hover {
     transform: translateY(-2px) scale(1.03);
-    box-shadow:
-        0 0 14px rgba(255,200,80,0.8),
-        0 6px 0 #c47c00;
+    box-shadow: 0 0 14px rgba(255,200,80,.8);
 }
 
-.link:active {
-    transform: translateY(2px) scale(0.97);
-    box-shadow: none;
+/* Achievement Popup */
+#achievement {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    background: #1e1e1e;
+    color: #ffd966;
+    padding: 12px 16px;
+    font-size: 8px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0,0,0,.6);
+    transition: transform .3s ease;
+}
+#achievement.show {
+    transform: translateX(-50%) scale(1);
 }
 </style>
 </head>
 <body>
 
 <div class="container">
-    <img class="pfp"
-     src="https://yt3.googleusercontent.com/9tK5asNypLAeTRfDKEdbJAJbkODQ-TxdSi9it-kU9fQUUHKDwbpfRfBdNpxO-Csu3TuLf8Sf6A=s160-c-k-c0x00ffffff-no-rj"
-     alt="Profilbild">
+    <img id="pfp" class="pfp"
+    src="https://yt3.googleusercontent.com/9tK5asNypLAeTRfDKEdbJAJbkODQ-TxdSi9it-kU9fQUUHKDwbpfRfBdNpxO-Csu3TuLf8Sf6A=s160-c-k-c0x00ffffff-no-rj">
 
     <h1>🔥 MAUVI</h1>
     <p>Minecraft • Content • Community</p>
 
-    <!-- SERVER STATUS -->
-    <div id="status">⏳ Server wird geladen…</div>
+    <img id="serverIcon" class="server-icon" hidden>
 
-    <a class="link" href="https://mauvi020.github.io/MauviSmp/#" target="_blank">⛏️ Minecraft Server</a>
-    <a class="link" href="https://discord.gg/arBCwWJV6s" target="_blank">💬 Discord</a>
-    <a class="link" href="https://www.youtube.com/@Mauvi020" target="_blank">▶️ YouTube</a>
-    <a class="link" href="https://www.tiktok.com/@mauvi_cat" target="_blank">🎵 TikTok</a>
+    <div id="status">⏳ Server lädt…</div>
+    <div id="extra"></div>
+    <div id="motd">📜 MOTD wird geladen…</div>
+
+    <a class="link" href="https://mauvi020.github.io/MauviSmp/#">⛏️ Minecraft Server</a>
+    <a class="link" href="https://discord.gg/arBCwWJV6s">💬 Discord</a>
+    <a class="link" href="https://www.youtube.com/@Mauvi020">▶️ YouTube</a>
+    <a class="link" href="https://www.tiktok.com/@mauvi_cat">🎵 TikTok</a>
 </div>
 
-<!-- 🦆 Duck Sound -->
-<audio id="duckSound" preload="auto">
-    <source src="https://www.myinstants.com/media/sounds/quack_5.mp3" type="audio/mpeg">
+<div id="achievement">🏆 Achievement unlocked<br>🦆 Duck Whisperer</div>
+
+<audio id="duckSound">
+    <source src="https://www.myinstants.com/media/sounds/quack_5.mp3">
 </audio>
 
 <script>
-/* 🦆 Hover Sound Anti-Spam */
-const sound = document.getElementById("duckSound");
-let lastPlay = 0;
+/* Server IP */
+const SERVER_IP = "mauvi.de";
 
-document.querySelectorAll(".link").forEach(link => {
-    link.addEventListener("mouseenter", () => {
-        const now = Date.now();
-        if (now - lastPlay > 1000) {
-            sound.currentTime = 0;
-            sound.play();
-            lastPlay = now;
-        }
-    });
+/* MC color codes */
+function mcColor(text) {
+    const map = {
+        "0":"#000","1":"#00a","2":"#0a0","3":"#0aa","4":"#a00",
+        "5":"#a0a","6":"#fa0","7":"#aaa","8":"#555","9":"#55f",
+        "a":"#5f5","b":"#5ff","c":"#f55","d":"#f5f","e":"#ff5","f":"#fff"
+    };
+    return text.replace(/§([0-9a-f])/gi,(_,c)=>`<span style="color:${map[c]}">`)
+               .replace(/$/g,"</span>");
+}
+
+/* Status */
+fetch(`https://api.mcsrvstat.us/2/${SERVER_IP}`)
+.then(r=>r.json())
+.then(d=>{
+    document.getElementById("status").innerText =
+        d.online ? `🟢 ONLINE — ${d.players.online}/${d.players.max}` : "🔴 OFFLINE";
+
+    document.getElementById("extra").innerText =
+        d.version ? `🧱 ${d.version} | 📶 ${d.debug.ping ? "Ping OK" : "Ping ?"}` : "";
+
+    if (d.icon) {
+        const icon = document.getElementById("serverIcon");
+        icon.src = d.icon;
+        icon.hidden = false;
+    }
+
+    if (d.motd?.raw) {
+        document.getElementById("motd").innerHTML =
+            d.motd.raw.map(l=>mcColor(l)).join("<br>");
+    }
 });
 
-/* 🟢 SERVER STATUS */
-/* HIER DEINE SERVER ADRESSE ÄNDERN ↓ */
-const SERVER_IP = "mauvi.de"; // oder IP
+/* Duck Achievement */
+let taps = 0;
+const pfp = document.getElementById("pfp");
+const ach = document.getElementById("achievement");
 
-fetch(`https://api.mcsrvstat.us/2/${SERVER_IP}`)
-    .then(res => res.json())
-    .then(data => {
-        const status = document.getElementById("status");
-        if (data.online) {
-            status.innerHTML =
-                `🟢 Server ONLINE<br>👥 ${data.players.online}/${data.players.max} Spieler`;
-        } else {
-            status.innerHTML = "🔴 Server OFFLINE";
-        }
-    })
-    .catch(() => {
-        document.getElementById("status").innerHTML = "⚠️ Status nicht erreichbar";
-    });
+pfp.addEventListener("click", () => {
+    taps++;
+    if (taps === 5) {
+        duckSound.play();
+        ach.classList.add("show");
+        setTimeout(()=>ach.classList.remove("show"), 3000);
+    }
+    setTimeout(()=>taps=0, 1200);
+});
 </script>
 
 </body>
