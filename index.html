@@ -5,11 +5,14 @@
     <title>Mauvi | Links</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Minecraft Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
     <style>
         body {
             margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background: linear-gradient(135deg, #ff8c00, #ffd000);
+            font-family: 'Press Start 2P', cursive;
+            background: linear-gradient(160deg, #ff9a00, #ffe066);
             color: white;
             display: flex;
             justify-content: center;
@@ -19,71 +22,97 @@
 
         .container {
             width: 100%;
-            max-width: 400px;
+            max-width: 380px;
             text-align: center;
-            padding: 20px;
+            padding: 24px 16px;
         }
 
         .pfp {
-            width: 120px;
-            height: 120px;
+            width: 110px;
+            height: 110px;
             border-radius: 50%;
             border: 4px solid white;
             object-fit: cover;
-            margin-bottom: 15px;
+            margin-bottom: 16px;
         }
 
         h1 {
-            margin: 10px 0 5px;
+            font-size: 18px;
+            margin-bottom: 8px;
         }
 
         p {
-            opacity: 0.9;
-            margin-bottom: 30px;
+            font-size: 10px;
+            opacity: 0.85;
+            margin-bottom: 28px;
         }
 
         a.link {
             display: block;
             text-decoration: none;
-            color: #ff9f00;
+            color: #ff9800;
             background: white;
-            padding: 15px;
-            margin: 12px 0;
-            border-radius: 14px;
-            transition: 0.2s ease;
-            font-weight: bold;
+            padding: 18px 12px;
+            margin: 14px 0;
+            border-radius: 16px;
+            font-size: 10px;
+            transition: transform 0.15s ease, background 0.15s ease;
+        }
+
+        a.link:active {
+            transform: scale(0.96);
         }
 
         a.link:hover {
-            background: #fff2cc;
+            background: #fff3cc;
             transform: scale(1.04);
+        }
+
+        /* Mobile extra clean */
+        @media (max-width: 420px) {
+            h1 {
+                font-size: 16px;
+            }
+
+            a.link {
+                font-size: 9px;
+                padding: 20px 10px;
+            }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <img class="pfp" src="https://yt3.googleusercontent.com/9tK5asNypLAeTRfDKEdbJAJbkODQ-TxdSi9it-kU9fQUUHKDwbpfRfBdNpxO-Csu3TuLf8Sf6A=s160-c-k-c0x00ffffff-no-rj" alt="Profilbild">
+    <img class="pfp"
+         src="https://yt3.googleusercontent.com/9tK5asNypLAeTRfDKEdbJAJbkODQ-TxdSi9it-kU9fQUUHKDwbpfRfBdNpxO-Csu3TuLf8Sf6A=s160-c-k-c0x00ffffff-no-rj"
+         alt="Profilbild">
 
-    <h1>🔥 Mauvi</h1>
+    <h1>🔥 MAUVI</h1>
     <p>Minecraft • Content • Community</p>
 
-    <a class="link" href="https://mauvi020.github.io/MauviSmp/#" target="_blank">
-        ⛏️ Minecraft Server
-    </a>
-
-    <a class="link" href="https://discord.gg/arBCwWJV6s" target="_blank">
-        💬 Discord
-    </a>
-
-    <a class="link" href="https://www.youtube.com/@Mauvi020" target="_blank">
-        ▶️ YouTube
-    </a>
-
-    <a class="link" href="https://www.tiktok.com/@mauvi_cat" target="_blank">
-        🎵 TikTok
-    </a>
+    <a class="link" href="https://mauvi020.github.io/MauviSmp/#" target="_blank">⛏️ Minecraft Server</a>
+    <a class="link" href="https://discord.gg/arBCwWJV6s" target="_blank">💬 Discord</a>
+    <a class="link" href="https://www.youtube.com/@Mauvi020" target="_blank">▶️ YouTube</a>
+    <a class="link" href="https://www.tiktok.com/@mauvi_cat" target="_blank">🎵 TikTok</a>
 </div>
+
+<!-- 🦆 Hover Sound -->
+<audio id="duckSound" preload="auto">
+    <source src="https://www.myinstants.com/media/sounds/quack_5.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+    const sound = document.getElementById("duckSound");
+    const links = document.querySelectorAll(".link");
+
+    links.forEach(link => {
+        link.addEventListener("mouseenter", () => {
+            sound.currentTime = 0;
+            sound.play();
+        });
+    });
+</script>
 
 </body>
 </html>
