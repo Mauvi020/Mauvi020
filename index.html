@@ -18,12 +18,6 @@
     --text-dark: #ffd966;
 }
 
-@media (prefers-color-scheme: dark) {
-    body {
-        background: var(--bg-dark);
-    }
-}
-
 body {
     margin: 0;
     font-family: 'Press Start 2P', cursive;
@@ -35,11 +29,42 @@ body {
     min-height: 100vh;
 }
 
+@media (prefers-color-scheme: dark) {
+    body { background: var(--bg-dark); }
+}
+
 .container {
     width: 100%;
     max-width: 360px;
-    padding: 24px 16px;
+    padding: 26px 18px;
     text-align: center;
+    position: relative;
+}
+
+/* 🟧 ANIMATED PIXEL FRAME */
+.container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 4px;
+    background:
+        repeating-linear-gradient(
+            90deg,
+            #ffb000 0 8px,
+            #ff7b00 8px 16px
+        );
+    -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    animation: pixelMove 3s linear infinite;
+    border-radius: 14px;
+}
+
+@keyframes pixelMove {
+    from { background-position: 0 0; }
+    to { background-position: 32px 0; }
 }
 
 .pfp {
@@ -48,7 +73,7 @@ body {
     border-radius: 50%;
     border: 4px solid white;
     object-fit: cover;
-    margin-bottom: 16px;
+    margin: 12px 0 14px;
     box-shadow: 0 0 20px rgba(255,170,0,0.6);
 }
 
@@ -60,10 +85,19 @@ h1 {
 p {
     font-size: 9px;
     opacity: 0.85;
-    margin-bottom: 26px;
+    margin-bottom: 18px;
 }
 
-/* Minecraft Pixel Button */
+/* SERVER STATUS */
+#status {
+    font-size: 8px;
+    margin-bottom: 18px;
+    padding: 10px;
+    border-radius: 10px;
+    background: rgba(0,0,0,0.25);
+}
+
+/* Minecraft Buttons */
 .link {
     display: block;
     text-decoration: none;
@@ -81,7 +115,6 @@ p {
         0 6px 0 #c47c00;
 }
 
-/* Darkmode Buttons */
 @media (prefers-color-scheme: dark) {
     .link {
         background: var(--button-dark);
@@ -104,15 +137,6 @@ p {
     transform: translateY(2px) scale(0.97);
     box-shadow: none;
 }
-
-/* Extra Mobile Clean */
-@media (max-width: 420px) {
-    h1 { font-size: 15px; }
-    .link {
-        font-size: 8px;
-        padding: 20px 8px;
-    }
-}
 </style>
 </head>
 <body>
@@ -125,31 +149,54 @@ p {
     <h1>🔥 MAUVI</h1>
     <p>Minecraft • Content • Community</p>
 
+    <!-- SERVER STATUS -->
+    <div id="status">⏳ Server wird geladen…</div>
+
     <a class="link" href="https://mauvi020.github.io/MauviSmp/#" target="_blank">⛏️ Minecraft Server</a>
     <a class="link" href="https://discord.gg/arBCwWJV6s" target="_blank">💬 Discord</a>
     <a class="link" href="https://www.youtube.com/@Mauvi020" target="_blank">▶️ YouTube</a>
     <a class="link" href="https://www.tiktok.com/@mauvi_cat" target="_blank">🎵 TikTok</a>
 </div>
 
-<!-- 🦆 Duck Hover Sound -->
+<!-- 🦆 Duck Sound -->
 <audio id="duckSound" preload="auto">
     <source src="https://www.myinstants.com/media/sounds/quack_5.mp3" type="audio/mpeg">
 </audio>
 
 <script>
+/* 🦆 Hover Sound Anti-Spam */
 const sound = document.getElementById("duckSound");
 let lastPlay = 0;
 
 document.querySelectorAll(".link").forEach(link => {
     link.addEventListener("mouseenter", () => {
         const now = Date.now();
-        if (now - lastPlay > 1000) { // anti spam
+        if (now - lastPlay > 1000) {
             sound.currentTime = 0;
             sound.play();
             lastPlay = now;
         }
     });
 });
+
+/* 🟢 SERVER STATUS */
+/* HIER DEINE SERVER ADRESSE ÄNDERN ↓ */
+const SERVER_IP = "mauvismp.de"; // oder IP
+
+fetch(`https://api.mcsrvstat.us/2/${SERVER_IP}`)
+    .then(res => res.json())
+    .then(data => {
+        const status = document.getElementById("status");
+        if (data.online) {
+            status.innerHTML =
+                `🟢 Server ONLINE<br>👥 ${data.players.online}/${data.players.max} Spieler`;
+        } else {
+            status.innerHTML = "🔴 Server OFFLINE";
+        }
+    })
+    .catch(() => {
+        document.getElementById("status").innerHTML = "⚠️ Status nicht erreichbar";
+    });
 </script>
 
 </body>
