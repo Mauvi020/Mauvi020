@@ -9,8 +9,8 @@
 
 <style>
 :root {
-    /* Verlauf von Gelb nach Rot */
-    --bg-gradient: linear-gradient(135deg, #ff9a00, #ff4444);
+    /* Verlauf von Mauvi-Gelb zu XXLtyp-Rot */
+    --bg-gradient: linear-gradient(90deg, #ff9a00 0%, #ff4444 100%);
     --button-dark: #1e1e1e;
 }
 
@@ -45,8 +45,8 @@ body {
 
 /* GRUND-CONTAINER */
 .container {
-    background: rgba(0,0,0,0.3); /* Etwas transparenter für den Verlauf */
-    backdrop-filter: blur(5px); /* Glaseffekt */
+    background: rgba(0,0,0,0.3);
+    backdrop-filter: blur(5px);
     padding: 24px 15px;
     text-align: center;
     position: relative;
@@ -54,7 +54,7 @@ body {
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start; /* Oben ausrichten für bessere Optik */
 }
 
 /* ANIMIERTER RAHMEN */
@@ -107,7 +107,7 @@ body {
     height: 85px;
     border-radius: 50%;
     border: 4px solid white;
-    margin: 0 auto 15px auto;
+    margin: 10px auto 15px auto;
     display: block;
     object-fit: cover;
 }
@@ -140,6 +140,7 @@ h2 { font-size: 10px; margin-bottom: 15px; line-height: 1.4; }
 @media (max-width: 850px) {
     .main-layout { flex-direction: column; align-items: center; }
     .container { width: 100%; max-width: 360px; }
+    --bg-gradient: linear-gradient(180deg, #ff9a00 0%, #ff4444 100%);
 }
 </style>
 </head>
@@ -166,8 +167,7 @@ h2 { font-size: 10px; margin-bottom: 15px; line-height: 1.4; }
     <div class="container xxltyp-box">
         <img class="pfp" src="https://yt3.googleusercontent.com/jw-x0JzIMq1Att1rdB46b7AgxMlXqPejHVo08Ut98jZTzx8hknP1qCjOZTV-oucDwT54dCthDw=s160-c-k-c0x00ffffff-no-rj" alt="XXLtyp">
         <h2>XXLtyp Socials</h2>
-        <a class="link" href="#" target="_blank">▶️ YouTube</a>
-        <a class="link" href="#" target="_blank">🎵 TikTok</a>
+        <a class="link" href="https://www.youtube.com/@XXLtyp-r6z9x" target="_blank">▶️ YouTube</a>
     </div>
 
 </div>
