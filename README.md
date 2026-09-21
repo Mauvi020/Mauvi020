@@ -1,7 +1,3 @@
-![Mauvi020](https://img.shields.io/badge/User-Mauvi020-7289da?style=for-the-badge&logo=github&logoColor=white)
-[![Discord](https://img.shields.io/badge/Discord-Mauvi020-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.com/users/1152903963914551296)
-[![YouTube](https://img.shields.io/badge/YouTube-Kanal-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtube.com/channel/UC9M2Et3igjAWlEczG97EmRg)
-
 
 <p align="center">
   <a href="https://github.com/Mauvi020"><img src="https://img.shields.io/badge/User-Mauvi020-7289da?style=for-the-badge&logo=github&logoColor=white"></a>
